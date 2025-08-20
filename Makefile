@@ -5,5 +5,5 @@ format:
 	ruff check . --fix
 
 test:
-	coverage run manage.py test
+	coverage run manage.py test --shuffle
 	coverage report -m

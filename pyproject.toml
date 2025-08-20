@@ -63,7 +63,7 @@ preview = true
 ]
 "*/tests/*" = [
     "ANN201", # Missing return type annotation for public function
-    "PT009", # Use a regular `assert` instead of unittest-style `assertEqual`"
+    "PT", # Use pytest instead of unittests
 ]
 
 

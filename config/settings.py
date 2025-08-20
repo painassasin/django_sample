@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import sys
 from pathlib import Path
 
 from django.contrib.messages import constants as messages
@@ -152,3 +153,35 @@ CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_DB}'
 CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_DB}'
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_WORKER_CONCURRENCY = env.int('CELERY_WORKER_CONCURRENCY')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[{asctime}] [{levelname}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {'handlers': ['console'], 'propagate': False, 'level': 'INFO'},
+        'config': {'handlers': ['console'], 'propagate': False, 'level': 'DEBUG'},
+        'mailing': {'handlers': ['console'], 'propagate': False, 'level': 'DEBUG'},
+    },
+}
+
+if 'test' in sys.argv:
+    EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+    CELERY_TASK_ALWAYS_EAGER = True
+    CELERY_TASK_EAGER_PROPAGATES = True
