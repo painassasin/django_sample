@@ -1,0 +1,12 @@
+<div class="position-relative mt-2 me-2"  style="z-index: 1000">
+  <div class="position-absolute top-0 end-0">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

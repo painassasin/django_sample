@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="d-flex" style="min-height: 100vh; align-items: center;">
+                <div class="w-100 m-auto bg-body-tertiary py-5 px-4 border border-1 rounded">
+                    <form method="post">
+                        {% csrf_token %}
+                        <h1 class="h3 mb-3 fw-normal text-center">Отправить письмо</h1>
+                        {% include 'inc/form_field.html' with field=form.title %}
+                        {% include 'inc/form_field.html' with field=form.body %}
+                        {% include 'inc/form_field.html' with field=form.recipient %}
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-light">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
