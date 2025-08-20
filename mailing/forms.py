@@ -1,10 +1,14 @@
+from typing import Any, ClassVar
+
 from django import forms
 
 from mailing.models import Mailing
 
 
 class BootstrapFormStylesMixin:
-    def __init__(self, *args, **kwargs) -> None:
+    fields: ClassVar[dict]
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'

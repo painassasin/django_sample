@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import SendMailView
 from .apps import MailingConfig
+from .views import SendMailView
 
 app_name = MailingConfig.name
 
