@@ -1,5 +1,9 @@
-.PHONY: format
+.PHONY: format test
 
 format:
-	poetry run ruff format .
-	poetry run ruff check . --fix
+	ruff format .
+	ruff check . --fix
+
+test:
+	coverage run manage.py test
+	coverage report -m

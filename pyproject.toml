@@ -59,6 +59,10 @@ preview = true
 "*/migrations/*" = [
     "E501", # Line too long
 ]
+"*/tests/*" = [
+    "ANN201", # Missing return type annotation for public function
+    "PT009", # Use a regular `assert` instead of unittest-style `assertEqual`"
+]
 
 
 [tool.ruff.lint.isort]
@@ -66,3 +70,30 @@ combine-as-imports = true
 
 [tool.ruff.lint.flake8-quotes]
 inline-quotes = "single"
+
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "*/__pycache__/*",
+    ".venv/*",
+    "*/asgi.py",
+    "*/wsgi.py",
+    "manage.py",
+]
+
+[tool.coverage.report]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "*/__pycache__/*",
+    ".venv/*",
+    "*/asgi.py",
+    "*/wsgi.py",
+    "manage.py",
+]
+show_missing = true
+skip_covered = true
+fail_under = 90
