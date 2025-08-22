@@ -63,6 +63,7 @@ preview = true
 ]
 "*/tests/*" = [
     "ANN201", # Missing return type annotation for public function
+    "ARG002", # Unused method argument
     "PT", # Use pytest instead of unittests
 ]
 
