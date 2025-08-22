@@ -1,0 +1,9 @@
+.coverage
+.env
+.gitignore
+.git
+.idea
+.ruff_cache
+.venv
+Makefile
+README.md
