@@ -39,9 +39,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: sh -c "python manage.py migrate &&  python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && \
+      python manage.py collectstatic -c --no-input && \
+      gunicorn config.wsgi --access-logfile - --error-logfile -  --reload -b 0.0.0.0:8000"
     volumes:
       - .:/app
+      - staticfiles:/app/staticfiles
     ports:
       - "8000:8000"
 
@@ -60,5 +63,19 @@ services:
         condition: service_healthy
     command: celery -A config worker -l INFO
 
+  nginx:
+    image: nginx:1.28-alpine
+    restart: on-failure
+    ports:
+      - "80:80"
+    volumes:
+      - staticfiles:/var/www/static/:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      backend:
+        condition: service_started
+
+
 volumes:
   pg_data:
+  staticfiles:

@@ -323,6 +323,28 @@ django = ["dj-database-url", "dj-email-url", "django-cache-url"]
 tests = ["backports.strenum ; python_version < \"3.11\"", "environs[django]", "packaging", "pytest"]
 
 [[package]]
+name = "gunicorn"
+version = "23.0.0"
+description = "WSGI HTTP Server for UNIX"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
+    {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
+]
+
+[package.dependencies]
+packaging = "*"
+
+[package.extras]
+eventlet = ["eventlet (>=0.24.1,!=0.36.0)"]
+gevent = ["gevent (>=1.4.0)"]
+setproctitle = ["setproctitle"]
+testing = ["coverage", "eventlet", "gevent", "pytest", "pytest-cov"]
+tornado = ["tornado (>=0.2)"]
+
+[[package]]
 name = "kombu"
 version = "5.5.4"
 description = "Messaging library for Python."
@@ -565,4 +587,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "613e9522518a9aadc31b780a95059da65f9f1e8750a2604f570205164ea1bef5"
+content-hash = "f9d958d7096f570a84fee19bf7f3df8b9d792854dd6888ba6420bf8dba282490"

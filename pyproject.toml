@@ -12,7 +12,8 @@ dependencies = [
     "environs (>=14.3.0,<15.0.0)",
     "psycopg2 (>=2.9.10,<3.0.0)",
     "redis (>=6.4.0,<7.0.0)",
-    "celery (>=5.5.3,<6.0.0)"
+    "celery (>=5.5.3,<6.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)"
 ]
 
 [tool.poetry]
