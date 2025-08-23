@@ -2,6 +2,9 @@ name: workflow.yml
 
 on: push
 
+env:
+  PYTHON_VERSION: '3.13'
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,32 +29,13 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-      - name: Set up python
-        uses: actions/setup-python@v5
+      - name: Set up Python and Poetry environment
+        uses: ./.github/actions/setup-python-poetry
         with:
-          python-version: '3.13'
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          virtualenvs-path: .venv
-          installer-parallel: true
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v4
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      - name: Install project
-        run: poetry install --no-root --no-interaction
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Run tests
         run: |
           cp .env.ci .env
-          source .venv/bin/activate
           coverage run manage.py test --shuffle
           coverage report
 
@@ -60,31 +44,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-      - name: Set up python
-        uses: actions/setup-python@v5
+      - name: Set up Python and Poetry environment
+        uses: ./.github/actions/setup-python-poetry
         with:
-          python-version: '3.13'
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          virtualenvs-path: .venv
-          installer-parallel: true
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v4
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      - name: Install project
-        run: poetry install --no-root --no-interaction
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Run lints
         run: |
-          source .venv/bin/activate
           ruff check .
           ruff format --check .
 
