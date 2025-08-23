@@ -8,22 +8,11 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      DB_NAME: postgres
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_HOST: localhost
-      DB_PORT: 5432
     services:
       postgres:
         image: postgres:17.1-alpine
         env:
-          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
     steps:
@@ -35,7 +24,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Run tests
         run: |
-          cp .env.ci .env
+          cp .github/.env.ci .env
           coverage run manage.py test --shuffle
           coverage report
 
