@@ -1,1 +1,2 @@
+[![ci/cd](https://github.com/painassasin/django_sample/actions/workflows/workflow.yml/badge.svg)](https://github.com/painassasin/django_sample/actions/workflows/workflow.yml)
 # Sample django project with deploy workflow
