@@ -122,7 +122,8 @@ jobs:
           script: |
             cd ${{ vars.SERVER_PATH }}
             docker pull ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_APP }}:${{ github.sha }}
-            docker compose up -d
+            docker compose down -t 10
+            docker compose up -d --wait
       - name: Cleanup
         uses: appleboy/ssh-action@v1
         with:
