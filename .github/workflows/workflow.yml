@@ -27,6 +27,11 @@ jobs:
           cp .github/.env.ci .env
           coverage run manage.py test --shuffle
           coverage report
+          coverage xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
