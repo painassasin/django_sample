@@ -32,7 +32,7 @@ services:
         condition: service_healthy
     command: sh -c "python manage.py migrate && \
       python manage.py collectstatic -c --no-input && \
-      gunicorn config.wsgi --access-logfile - --error-logfile -  --reload -b 0.0.0.0:8000"
+      gunicorn config.wsgi --workers 4 --access-logfile - --error-logfile -  --reload -b 0.0.0.0:8000"
     volumes:
       - staticfiles:/app/staticfiles
 

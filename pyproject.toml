@@ -71,6 +71,9 @@ preview = true
     "ARG002", # Unused method argument
     "PT", # Use pytest instead of unittests
 ]
+"**/__init__.py" = [
+    "F403", # Import * used; unable to detect undefined names
+]
 
 
 [tool.ruff.lint.isort]
