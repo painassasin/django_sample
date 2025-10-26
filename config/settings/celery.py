@@ -1,4 +1,4 @@
-from .base import REDIS_HOST, REDIS_PORT, TIME_ZONE, env, IS_TESTING
+from .base import IS_TESTING, REDIS_HOST, REDIS_PORT, TIME_ZONE, env
 
 CELERY_DB = env.int('CELERY_DB', 0)
 
